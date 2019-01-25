@@ -25,12 +25,12 @@ When you click the **Knit** button a document will be generated that includes bo
 library(tidyverse)
 library(xlsx)
 library(LaCroixColoR)
+library(readxl)
 ```
 
 ## Read in data
-# Note: I was having trouble reading in the csv so I converted to xlsx and read in with xlsx instead. Not sure why csv would not read in, possibly due to no label on first column header? Error with download to my pc?
 ```{r}
-avocado <- read.xlsx(file = "avocado.xlsx", 1, header = TRUE)
+avocado <- read.xlsx(file = "avocado1.xlsx", 1, header = TRUE)
 ```
 
 ## Drop unnecessary columns (recordno, total.bags, type, year)
@@ -63,6 +63,9 @@ ggplot(data=avocado_sub, aes(x=Date, y=AvgPrice, group=Region, colour=Region))+
   geom_point()+
   geom_smooth(aes(group=Region, colour=Region))+
   ggtitle('Avocado Prices by U.S. Market')+
+  xlab('Date in 1-week intervals')+
+  ylab('Price in $')+
+  theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5))+
   scale_color_manual(values=lacroix_palette("PassionFruit", type = "discrete"))
 ```
 
